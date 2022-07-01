@@ -72,7 +72,6 @@
     <transition name="fade">
       <ModalComponent
           :modalType="modalType"
-          :showModal="showModal"
           @modalType="modalType"
           @closeModal="closeModal"
       />
@@ -84,6 +83,7 @@
 <script lang="ts">
 import { Component, Emit, Vue } from "vue-property-decorator";
 import ModalComponent from "@/components/common/utils/modal/ModalComponent.vue";
+import { MODAL } from "@/interfaces/common/ICommon";
 
 @Component({
   components: {
@@ -92,7 +92,6 @@ import ModalComponent from "@/components/common/utils/modal/ModalComponent.vue";
 })
 export default class StatusComponent extends Vue {
   showSearchList = false;
-  showModal = false;
   modalType = '';
   showMessage = false;
   showMyMenu = false;
@@ -102,15 +101,15 @@ export default class StatusComponent extends Vue {
   }
 
   private closeModal() {
-    this.showModal = false;
-    this.$emit('notScroll', false);
-    this.modalType = '';
+    this.$store.commit('utilsStore/showModal', false);
+    this.$store.commit('cssStore/scrollEvent', false);
+    this.modalType = MODAL.INIT;
   }
 
   private showLoginView() {
-    this.modalType = 'Login';
-    this.showModal = true;
-    this.notScrollBody();
+    this.modalType = MODAL.LOGIN;
+    this.$store.commit('utilsStore/showModal', true);
+    this.$store.commit('cssStore/scrollEvent', true);
   }
 
   private closeSearchList() {

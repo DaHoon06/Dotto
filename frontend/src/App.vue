@@ -1,14 +1,13 @@
 <template>
   <div id="app" :class='`${scrollPrevent}`'>
     <header-view
-        @blurBackground="blurBackground"
         @notScrollBody="notScrollBody"
         :navigationType="navigationTypeComputed"
     />
     <router-view
-        :class='`${blurCss}`'
+        :class='`${BLUR} ${SCROLL}`'
         @changeNavType="changeNavType" />
-    <footer-component :class='`${blurCss}`' />
+    <footer-component :class='`${BLUR} ${SCROLL}`' />
   </div>
 </template>
 
@@ -18,7 +17,6 @@ import HeaderView from "@/views/HeaderView.vue";
 import { FooterComponent } from "@/components/common";
 import { BLUR, SCROLL } from "@/interfaces/common/ICommon";
 
-
 @Component({
   components: {
     FooterComponent,
@@ -26,14 +24,12 @@ import { BLUR, SCROLL } from "@/interfaces/common/ICommon";
   }
 })
 export default class App extends Vue {
-  blurCss: BLUR = BLUR.OFF;
-  scrollPrevent: SCROLL = SCROLL.ON;
+  blurCss = '';
+  scrollPrevent = this.$store.getters["utilsStore/SCROLL"];
   navigationType = '';
 
-  private blurBackground(isBlur: boolean) {
-    isBlur ? this.blurCss = BLUR.ON : this.blurCss = BLUR.OFF;
-    isBlur ? this.scrollPrevent = SCROLL.OFF : this.scrollPrevent = SCROLL.ON;
-  }
+  BLUR = this.scrollPrevent ? this.blurCss = BLUR.ON : this.blurCss = BLUR.OFF
+  SCROLL = this.scrollPrevent ? this.scrollPrevent = SCROLL.OFF : this.scrollPrevent = SCROLL.ON;
 
   private notScrollBody(scrollEvent: boolean) {
     scrollEvent ? this.scrollPrevent = SCROLL.OFF : this.scrollPrevent = SCROLL.ON;

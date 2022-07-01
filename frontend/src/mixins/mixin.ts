@@ -18,6 +18,16 @@ export class Mixin extends Vue {
         return this.$store.getters["userStore/isLogin"];
     }
 
+    /* modal */
+    get isModal(): boolean {
+        return this.$store.getters['utilsStore/isModal'];
+    }
+
+    get scrollEvent() {
+        return this.$store.getters["utilsStore/SCROLL"];
+    }
+
+
     cancel(): void {
         return this.$router.go(-1);
     }

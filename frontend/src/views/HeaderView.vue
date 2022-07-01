@@ -1,8 +1,7 @@
 <template>
   <header id="header">
     <header-component
-        @blurBackground="blurBackground"
-        @notScroll="notScrollBody" />
+         />
     <status-component
         @blurBackground="blurBackground"
         @notScroll="notScrollBody"

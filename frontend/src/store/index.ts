@@ -10,6 +10,7 @@ export interface State {
 Vue.use(Vuex)
 
 import userStore from "@/store/user/UserStore";
+import utilsStore from "@/store/utils/UtilsStore";
 
 const store = new Vuex.Store({
   plugins: [createPersistedState({
@@ -17,6 +18,7 @@ const store = new Vuex.Store({
   })],
   modules: {
     userStore: userStore,
+    utilsStore: utilsStore,
   }
 });
 export default store;
