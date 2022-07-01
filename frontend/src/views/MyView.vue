@@ -26,9 +26,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import MainComponent from "@/components/MainComponent.vue";
 import {
-  HeaderComponent,
   FooterComponent,
-  NavigationComponent,
   MenuButton
 } from "@/components/common";
 import FollowListComponent from "@/components/main/FollowListComponent.vue";
@@ -44,9 +42,7 @@ import MyLikeListsComponent from "@/components/my/tabs/MyLikeListsComponent.vue"
     MyInformationComponent,
     MainBannerComponent,
     FollowListComponent,
-    NavigationComponent,
     FooterComponent,
-    HeaderComponent,
     MainComponent,
     MenuButton
   }

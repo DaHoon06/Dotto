@@ -1,25 +1,26 @@
 <template>
   <section class="right-side">
     <button id="go-top" class="right-side-btn" @click="scrollHandler">
-      <img id="top" src="@/assets/icons/main/go-top.png" alt="top" />
+      <img id="top" src="@/assets/icons/main/go-top.svg" alt="top" />
       <span>TOP</span>
     </button>
   </section>
 </template>
 
 <script lang="ts">
-import {Component, Vue} from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 
 @Component
 export default class TopScrollButton extends Vue {
-  timeOut = 0;
+  timeOut = '';
 
   private scrollHandler() {
-    if (document.body.scrollTop != 0 || document.documentElement.scrollTop != 0) {
-      window.scrollBy(0,-9999);
-    } else {
-      clearTimeout(this.timeOut);
-    }
+    window.scrollBy(0,-9999);
+    // if (document.body.scrollTop != 0 || document.documentElement.scrollTop != 0) {
+    //   window.scrollBy(0,-9999);
+    // } else {
+    //   clearTimeout(this.timeOut);
+    // }
   }
 
 }

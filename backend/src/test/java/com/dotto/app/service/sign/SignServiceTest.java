@@ -65,7 +65,7 @@ class SignServiceTest {
     @Test
     void signInTest() {
         //given
-        given(memberRepository.findWithRolesByEmail(any())).willReturn(Optional.of(createMember()));
+        given(memberRepository.findWithRolesById(any())).willReturn(Optional.of(createMember()));
         given(passwordEncoder.matches(anyString(),anyString())).willReturn(true);
         given(accessTokenHelper.createToken(any())).willReturn("access");
         given(refreshTokenHelper.createToken(any())).willReturn("refresh");

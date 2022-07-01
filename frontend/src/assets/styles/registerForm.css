@@ -1,4 +1,3 @@
-/* 초기 기획에서 회원가입 양식이 2개 였기 때문에 공통으로 사용될 CSS 분리 하였습니다. */
 .input-text {
     border: 1px solid #eeeeee;
     outline: none;
@@ -6,11 +5,6 @@
     height: 40px;
     width: 75%;
     padding-left: 10px;
-}
-
-#register-submit-btn {
-    width: 100%;
-    height: 35px;
 }
 
 .warning-msg {
@@ -34,7 +28,11 @@
     justify-content: space-between;
     width: 100%;
 }
-
+/* 회원가입에 사용된 버튼 */
+#register-submit-btn {
+    width: 100%;
+    height: 35px;
+}
 .register-btn {
     border: 1px solid #b2b2b2;
     border-radius: 3px;
@@ -46,7 +44,6 @@
     width: 90px;
     padding: 6px 6px 6px 6px;
 }
-
 .register-common-btn {
     width: 130px;
     height: 42px;

@@ -29,7 +29,7 @@ export default class DottoBoardView extends Vue {
   showSearchFilter = false;
   otherBgColor = 'dotto-background-other';
 
-  created() {
+  created(): void {
     this.changeNavType();
   }
 
@@ -50,11 +50,11 @@ export default class DottoBoardView extends Vue {
 
 <style scoped>
 #dotto-board-container {
-  margin-top: 100px;
+  width: 100%;
   height: 100%;
   min-height: 800px;
   background: white;
-
+  margin-top: 170px;
 }
 
 #side-search-filter-wrapper {

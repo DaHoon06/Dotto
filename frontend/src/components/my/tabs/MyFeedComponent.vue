@@ -3,17 +3,17 @@
 
     <div id="my-feed-icons-wrapper">
       <span>
-        <img src="@/assets/icons/myfeed/collapse.png" id="colspan" class="myfeed-sort-icons" alt="colspan" />
+        <img src="@/assets/icons/myfeed/collapse.svg" id="colspan" class="myfeed-sort-icons" alt="colspan" />
       </span>
       <span>
-        <img src="@/assets/icons/myfeed/grid.png" class="myfeed-sort-icons" alt="colspan" />
+        <img src="@/assets/icons/myfeed/grid.svg" class="myfeed-sort-icons" alt="colspan" />
       </span>
     </div>
 
     <div id="my-feed-list-container">
       <div class="my-feed-user-info-wrapper my-feed-items">
         <span>
-          <img src="@/assets/icons/default.png" class="my-feed-profile" alt="profile" />
+          <img src="@/assets/icons/default.svg" class="my-feed-profile" alt="profile" />
         </span>
         <div class="my-feed-user-info my-feed-items">
           <span class="my-feed-nickName">닉네임</span>
@@ -28,10 +28,10 @@
       </div>
       <div class="my-feed-items">
         <span>
-          <img class="my-feed-icons" src="@/assets/icons/myfeed/like-icons.png" alt="like-icons" />
+          <img class="my-feed-icons" src="@/assets/icons/myfeed/like-icons.svg" alt="like-icons" />
         </span>
         <span>
-          <img class="my-feed-icons my-feed-message" src="@/assets/icons/myfeed/message.png" alt="message" />
+          <img class="my-feed-icons my-feed-message" src="@/assets/icons/myfeed/message.svg" alt="message" />
         </span>
       </div>
       <div class="like-count-wrapper my-feed-items">
@@ -45,7 +45,7 @@
       <hr />
       <div class="my-feed-comment-wrapper">
         <span>
-          <img src="@/assets/icons/default.png" class="my-feed-my" alt="my" />
+          <img src="@/assets/icons/default.svg" class="my-feed-my" alt="my" />
         </span>
         <input type="text" class="my-feed-comment" placeholder="댓글을 입력하세요..." />
         <button class="my-feed-comment-postingBtn">게시</button>

@@ -37,15 +37,24 @@ const routes: Array<RouteConfig> = [
     path: '/my',
     name: 'my',
     component: () => import('@/views/MyView.vue'),
-    meta: { unauthorized: false },
+    meta: { unauthorized: true },
   },
   {
     path: '/dotto/board',
     name: 'board',
     component: () => import('@/views/dotto/DottoBoardView.vue'),
     children: [
-      { path: 'index', name: 'dottoBoard', component: () => import('@/components/dotto/DottoComponent.vue'), meta: { unauthorized: true } },
-      { path: 'post', name: 'dottoPosting', component: () => import('@/components/dotto/DottoPostingComponent.vue'), meta: { unauthorized: true }, }
+      { path: 'index', name: 'dottoBoard', component: () => import('@/components/dotto/DottoContainer.vue'), meta: { unauthorized: true } },
+      { path: 'post', name: 'dottoPosting', component: () => import('@/components/dotto/DottoPostingComponent.vue'), meta: { unauthorized: true }, },
+      { path: 'view', name: 'dottoView', component: () => import('@/components/dotto/DottoDetailComponent.vue'), meta: { unauthorized: true }, },
+    ]
+  },
+  {
+    path: '/dotto/feed',
+    name: 'feed',
+    component: () => import('@/views/feed/FeedView.vue'),
+    children: [
+      { path: 'index', name: 'feed', component: () => import('@/components/feed/FeedComponent.vue'), meta: { unauthorized: true } },
     ]
   }
 ]

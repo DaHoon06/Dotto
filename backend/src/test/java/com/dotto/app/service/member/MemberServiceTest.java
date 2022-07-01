@@ -38,7 +38,7 @@ class MemberServiceTest {
         MemberDto result = memberService.read(1L);
 
         //then
-        assertThat(result.getEmail()).isEqualTo(member.getEmail());
+        assertThat(result.getId()).isEqualTo(member.getId());
     }
 
     @Test

@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberDto {
-    private Long memNo;
-    private String email;
+    private Long memberNo;
+    private String id;
     private String nickname;
 
     public static MemberDto toDto(Member member){
-        return new MemberDto(member.getMemNo(), member.getEmail(), member.getNickname());
+        return new MemberDto(member.getMemberNo(), member.getId(), member.getNickname());
     }
 
 

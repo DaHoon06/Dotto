@@ -23,11 +23,11 @@ public class Member extends EntityDate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_no")
-    private Long memNo;
+    @Column(name = "memberNo")
+    private Long memberNo;
 
     @Column(nullable = false, unique = true)
-    private String email;
+    private String id;
 
     private String password;
 
@@ -39,30 +39,13 @@ public class Member extends EntityDate {
     @Column(nullable = false)
     private String phone;
 
+    private String intro;
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<MemberRole> roles;
 
-    private String addr;
 
-    private String subAddr;
-
-    private String intro;
-
-    //아티스트 생성자
-    public Member(String email, String password, String nickname, String gender, String phone, List<Role> roles, String addr, String subAddr){
-        this.email = email;
-        this.password = password;
-        this.nickname = nickname;
-        this.gender = gender;
-        this.phone = phone;
-        this.roles = roles.stream().map(r -> new MemberRole(this,r)).collect(Collectors.toSet());
-        this.addr = addr;
-        this.subAddr = subAddr;
-    }
-
-    //일반회원 생성자
-    public Member(String email, String password, String nickname, String gender, String phone, List<Role> roles){
-        this.email = email;
+    public Member(String id, String password, String nickname, String gender, String phone, List<Role> roles){
+        this.id = id;
         this.password = password;
         this.nickname = nickname;
         this.gender = gender;

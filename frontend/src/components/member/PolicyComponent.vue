@@ -20,7 +20,7 @@
         </div>
         <div class="policy-title-test">이용약관 동의<span class="necessary">(필수)</span></div>
         <div>
-          <img @click="showDottoPolicyContent" class="side-menu-drop-btn-01 filter-text" src="@/assets/icons/nav/filter-btn.png" alt="sort" />
+          <img @click="showDottoPolicyContent" class="side-menu-drop-btn filter-text" src="@/assets/icons/nav/filter-btn.svg" alt="sort" />
         </div>
       </div>
       <hr class="under-line">
@@ -35,7 +35,7 @@
         </div>
         <div class="policy-title-test">개인정보 수집 . 이용동<span class="necessary">(필수)</span></div>
         <div>
-          <img @click="showPrivatePolicyContent" class="side-menu-drop-btn-02 filter-text" src="@/assets/icons/nav/filter-btn.png" alt="sort" />
+          <img @click="showPrivatePolicyContent" class="side-menu-drop-btn filter-text" src="@/assets/icons/nav/filter-btn.svg" alt="sort" />
         </div>
       </div>
       <hr class="under-line">
@@ -50,10 +50,10 @@
 <!--        </div>-->
 <!--        <div>이벤트 등 프로모션 알람 메일 수신<span class="choice">(선택)</span></div>-->
 <!--        <div>-->
-<!--          <img @click="showMarketingPolicyContent" class="side-menu-drop-btn filter-text" src="@/assets/icons/nav/filter-btn.png" alt="sort" />-->
+<!--          <img @click="showMarketingPolicyContent" class="side-menu-drop-btn filter-text" src="@/assets/icons/nav/filter-btn.svg" alt="sort" />-->
 <!--        </div>-->
 <!--      </div>-->
-<!--      <hr class="test01">-->
+<!--      <hr />-->
 <!--      <div v-show="showMarketingPolicy" class="policy-text" v-html="terms.marketingPolicyContent"></div>-->
 <!--    </article>-->
 
@@ -160,7 +160,6 @@ export default class PolicyComponent extends Vue {
 #policy-container {
   display: flex;
   overflow-y: auto;
-  justify-content: space-between;
   flex-direction: column;
   /*height: 100%;*/
   margin-top: 100px;

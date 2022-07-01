@@ -25,9 +25,7 @@ import RegisterComponent from "@/components/member/RegisterComponent.vue";
 import CompletedComponent from "@/components/member/CompletedComponent.vue";
 import PolicyComponent from "@/components/member/PolicyComponent.vue";
 import {
-  HeaderComponent,
   FooterComponent,
-  NavigationComponent,
   MenuButton
 } from "@/components/common";
 import ProgressComponent from "@/components/member/ProgressComponent.vue";
@@ -36,8 +34,6 @@ import ProgressComponent from "@/components/member/ProgressComponent.vue";
   components: {
     RegisterComponent,
     FooterComponent,
-    NavigationComponent,
-    HeaderComponent,
     MenuButton,
     ProgressComponent
   }

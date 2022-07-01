@@ -15,7 +15,7 @@ export class Mixin extends Vue {
     }
 
     get isLogin(): boolean {
-        return false;
+        return this.$store.getters["userStore/isLogin"];
     }
 
     cancel(): void {

@@ -4,7 +4,7 @@ import com.dotto.app.dto.sign.SignInResponse;
 
 public class SignInResponseFactory {
 
-    public static SignInResponse createSignInResponse(String accessToken, String refreshToken){
-        return new SignInResponse(accessToken, refreshToken);
+    public static SignInResponse createSignInResponse(String accessToken, String refreshToken, String nickname, String roles){
+        return new SignInResponse(accessToken, refreshToken, nickname, roles);
     }
 }

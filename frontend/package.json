@@ -13,6 +13,7 @@
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
     "moment": "^2.29.1",
+    "socket.io-client": "^4.5.0",
     "vue": "^2.6.11",
     "vue-axios": "^3.2.4",
     "vue-class-component": "^7.2.3",
@@ -20,12 +21,13 @@
     "vue-daum-postcode": "^0.10.0",
     "vue-google-login": "^2.0.5",
     "vue-google-oauth2": "^1.5.8",
+    "vue-infinite-loading": "^2.4.5",
     "vue-property-decorator": "^9.1.2",
     "vue-router": "^3.2.0",
+    "vue-socket.io": "^3.0.10",
+    "vue2-perfect-scrollbar": "^1.5.5",
     "vuex": "^3.4.0",
-    "vuex-persistedstate": "^4.1.0",
-    "socket.io-client": "^4.5.0",
-    "vue-socket.io": "^3.0.10"
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@types/moment": "^2.13.0",

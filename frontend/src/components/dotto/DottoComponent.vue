@@ -1,458 +1,154 @@
 <template>
-  <div id="main-container" :class="showFilterComponent ? 'showSearchFilter' : ''" >
-    <follow-list-component />
+  <section>
 
-    <section id="filter-area">
-      <span class="filter-section">
-        <button @click="showSort" >
-          <span class="filter-text">{{ sendSortType }}</span>
-          <img class="side-menu-drop-btn filter-text" src="@/assets/icons/nav/filter-btn.png" alt="sort" />
-        </button>
-        <sort-component
-            @typeName="typeName"
-            :selectedType="filterType"
-            :showSortComponent="showSortComponent" />
-      </span>
+    <div id="tattoo-container">
 
-      <span id="filter" class="filter-section">
-        <button @click="showFilter">
-          <span class="filter-text">FILTER</span>
-          <img class="filter-text filter-toggle-img" src="@/assets/icons/main/filter.png" alt="filter" />
-        </button>
-      </span>
-    </section>
-
-    <section id="tattoo-container">
-      <article class="tattoo-board-list">
-        <div>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img01.png" alt="sample01" />
-        </div>
-        <div class="tattoo-board-list-info user-name">tattooist_id</div>
-        <div class="tattoo-board-list-info title">글 제목</div>
-        <div class="tattoo-board-list-info">
-          <span class="event-price price">5만원</span>
-          <span class="original-price price">10만원</span>
-          <span class="discount-rate price">50%</span>
-        </div>
-
-        <div class="tag-area tattoo-board-list-info location">홍대</div>
+      <article v-if="!existData">
+        <h5>
+          <router-link to="/dotto/board/view">임시 상세보기</router-link>
+        </h5>
+        <h5>API 연동 해야함</h5>
+        <small>게시글이 존재하지 않습니다.</small>
       </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img02.png" alt="sample02" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
+      <article class="tattoo-board-list" v-for="(dotto, index) in lists" :key="index" v-else>
+        <!--TODO: 실제 변수 체크 -->
+        <router-link :to=`/dotto/board/view/${dotto.postNo}`>
+          <div>
+            <img class="tattoo-img" :src=`${dotto.postPhoto}` alt="sample01" />
+          </div>
+          <div class="tattoo-board-list-info user-name">tattooist_id</div>
+          <div class="tattoo-board-list-info title">{ dotto.title }}</div>
+          <div class="tattoo-board-list-info">
+            <span class="event-price price">{{ dotto.salesPrice }}</span>
+            <span class="original-price price">{{ dotto.price }}</span>
+            <span class="discount-rate price">할인율???</span>
+          </div>
+          <!-- span 태그로 해야하려나 -->
+          <div class="tag-area tattoo-board-list-info location" v-for="(dottoTags, index) in tags" :key="index">
+            {{ dottoTags }}
+          </div>
+        </router-link>
       </article>
+    </div>
+    <infinite-loading
+        @infinite="getDottoBoardList"
+        :infiniteId="infiniteId"
+        spinner="waveDots"
+        ref="InfiniteLoading"
+    />
 
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img03.png" alt="sample03" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img04.png" alt="sample04" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img05.png" alt="sample05" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img06.png" alt="sample06" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img07.png" alt="sample07" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img08.png" alt="sample08" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img07.png" alt="sample07" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img08.png" alt="sample08" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img07.png" alt="sample07" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img08.png" alt="sample08" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img07.png" alt="sample07" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img08.png" alt="sample08" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img07.png" alt="sample07" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img08.png" alt="sample08" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img07.png" alt="sample07" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img08.png" alt="sample08" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img07.png" alt="sample07" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img08.png" alt="sample08" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img07.png" alt="sample07" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img08.png" alt="sample08" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img07.png" alt="sample07" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img08.png" alt="sample08" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img07.png" alt="sample07" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img08.png" alt="sample08" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img07.png" alt="sample07" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img08.png" alt="sample08" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img07.png" alt="sample07" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img08.png" alt="sample08" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img07.png" alt="sample07" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img08.png" alt="sample08" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img07.png" alt="sample07" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img08.png" alt="sample08" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img07.png" alt="sample07" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img08.png" alt="sample08" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img07.png" alt="sample07" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img08.png" alt="sample08" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img07.png" alt="sample07" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img08.png" alt="sample08" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img07.png" alt="sample07" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-      <article class="tattoo-board-list">
-        <figure>
-          <img class="tattoo-img" src="@/assets/icons/main/sample/sample_img08.png" alt="sample08" />
-        </figure>
-        <p>글 제목</p>
-        <p>50% 5만원 10만원</p>
-        <p class="tag-area">홍대</p>
-      </article>
-
-    </section>
-
-    <aside id="side-button-container">
-      <dotto-posting-button />
-      <top-scroll-button />
-    </aside>
-  </div>
+  </section>
 </template>
 
 <script lang="ts">
-import { Component, Emit, Vue } from "vue-property-decorator";
+import { Component, Emit, Prop, Vue } from "vue-property-decorator";
 import { TopScrollButton, SortComponent } from "@/components/common";
 import FollowListComponent from "@/components/main/FollowListComponent.vue";
-import DottoPostingButton from "@/components/dotto/DottoPostingButton.vue";
+import { DottoPostingButton } from "@/components/dotto";
+import InfiniteLoading from 'vue-infinite-loading';
 
+export interface IDottoBoard {
+  postNo: number,
+  memberNo: number,
+  title: string,
+  content: string,
+  price: number,
+  salesPrice: number,
+  genre: string,
+  totalTime: number,
+  postPhoto: string,
+  tags: string[],
+  createdAt: Date,
+  modifiedAt: Date,
+  deletedAt: Date,
+  deletedYn: string,
+}
 @Component({
   components: {
     DottoPostingButton,
     TopScrollButton,
     SortComponent,
-    FollowListComponent
+    FollowListComponent,
+    InfiniteLoading
   }
 })
 export default class DottoComponent extends Vue {
+  @Prop() limit?: number;
+
+  existData = false;
+
+  /*TODO:
+      1. 닷투 게시판 인터페이스 정의
+      2. 리스트 호출 -> limit 8, limit 16  2Type
+      3. 무한 스크롤 기능 구현
+  */
   showSortComponent = false;
   showFilterComponent = false;
-  filterType: string;
+  filterType= '최신순';
   showSearchFilter = 'showSearchFilter';
+  page = 1;
+  lists: IDottoBoard[] = [];
+  dottoData:IDottoBoard;
+  infiniteId = +new Date();
+  tags: string[] = [];
 
   constructor() {
     super();
-    this.filterType = '최신순'
+    this.dottoData = {
+      postNo: 0,
+      memberNo: 0,
+      title: '',
+      content: '',
+      price: 0,
+      salesPrice: 0,
+      genre: '',
+      totalTime: 0,
+      postPhoto: '',
+      tags: [],
+      createdAt: new Date(),
+      modifiedAt: new Date(),
+      deletedAt: new Date(),
+      deletedYn: '',
+    }
   }
 
-  created() {
+  created(): void {
     this.changeBackground();
   }
 
+  private async getDottoBoardList($state: any): Promise<void> {
+    this.existData = false;
+    try {
+      const { data } = await this.axios.get('/api', {
+        params: {
+          limit: this.limit,
+          page: this.page
+        }
+      });
+      const { lists, result } = data as { lists: IDottoBoard, result: boolean };
+      if (result) {
+        setTimeout(async () => {
+          this.page += 1;
+          this.lists.push(lists);
+          this.tags = lists.tags;
+          $state.loaded();
+        }, 1000);
+        this.existData = true;
+      } else {
+        $state.complete();
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  //- OPTIONS
   private showSort() {
     this.showSortComponent = !this.showSortComponent;
   }
-
   private typeName(type: string) {
     this.filterType = type;
   }
-
   private get sendSortType() {
     return this.filterType;
   }
@@ -462,7 +158,6 @@ export default class DottoComponent extends Vue {
     this.showFilterComponent = !this.showFilterComponent;
     return this.showFilterComponent;
   }
-
   @Emit('changeBackground')
   private changeBackground() {
     return 'main';
@@ -472,31 +167,11 @@ export default class DottoComponent extends Vue {
 </script>
 
 <style scoped>
-#main-container {
-  max-width: 1200px;
-  width: 100%;
-  margin: 100px auto 10em auto;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-#filter-area {
-  height: 30px;
-  display: inline-block;
-  text-align: right;
-  padding-right: 5em;
-}
-
 #tattoo-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-}
-
-.side-menu-drop-btn {
-  width: 12px;
 }
 
 .tattoo-board-list {
@@ -508,53 +183,10 @@ export default class DottoComponent extends Vue {
   margin-left: 1em;
 }
 
-.filter-text {
-  font-size: 14px;
-  margin-left: 5px;
-  font-weight: 600;
-}
-
-.filter-toggle-img {
-  width: 18px;
-}
-
-.filter-section {
-  margin-left: 20px;
-}
-
 .tattoo-img {
   width: 240px;
   margin-left: 10px;
   margin-top: 8px;
-}
-
-.tag-area {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 5px 8px;
-  background: #F5F5F5;
-
-
-  /* 서울 홍대 */
-  position: static;
-  width: 40px;
-  height: 23px;
-  left: 8px;
-  top: 4px;
-
-  font-family: 'Pretendard';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 14px;
-  color: #696969;
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  margin: 0px 0px;
 }
 
 .tattoo-board-list-info {
@@ -601,33 +233,15 @@ export default class DottoComponent extends Vue {
   text-decoration-line: line-through;
 }
 
-/* side button */
-#side-button-container {
-  position: fixed;
-  top: 50%;
-  right: 48px;
-}
-
-.showSearchFilter {
-  padding-left: 180px;
-}
-
-
 @media screen and (max-width: 1719px){
 
 }
 
 @media screen and (max-width: 1440px){
-  #filter-area {
-    padding-right: 5em;
-  }
-
 }
 
 @media screen and (max-width: 1260px) {
-  #filter {
-    display: none;
-  }
+
 }
 
 @media screen and (max-width: 869px){

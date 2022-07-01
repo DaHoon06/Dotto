@@ -14,12 +14,22 @@ body {
 
 ul {
     list-style: none;
+    margin: 0;
 }
 
 button {
     background: none;
     border: none;
     outline: none;
+}
+
+a {
+    text-decoration: none;
+    color: #919191;
+}
+
+a:hover {
+    color: #222222;
 }
 
 /* input number 화살표 제거 */
@@ -31,4 +41,48 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
     -moz-appearance: textfield;
+}
+
+.active-post-btn {
+    background: #1c1b1b !important;
+    color: white;
+    font-weight: 700;
+}
+
+.fade-enter-active {
+    transition: all .3s ease;
+}
+
+.fade-leave-active {
+    transition: all 0s;
+}
+
+.fade-enter, .fade-leave-to {
+    opacity: 0;
+}
+
+/* 태그 */
+.tag-area {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 5px 8px;
+    background: #F5F5F5;
+    /* 서울 홍대 */
+    position: static;
+    width: 40px;
+    height: 23px;
+    left: 8px;
+    top: 4px;
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #696969;
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin: 0 0;
 }

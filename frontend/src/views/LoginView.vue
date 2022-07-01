@@ -1,7 +1,7 @@
 <template>
   <main id="loginPage-container">
     <section id="logo-img" class="login-info-section">
-      <span class="logo"><img src="@/assets/img/dotto.jpg" alt="logo" /></span>
+      <span class="logo"><img src="@/assets/img/dotto.svg" alt="logo" /></span>
     </section>
 
     <section class="login-info-section">
@@ -105,13 +105,13 @@ export default class LoginView extends Vue {
       password: this.password
     };
     const { data } = await this.axios.post('/sign-in', sendData) as { data: IUser.ILoginSuccess }
-    const { result } = data;
-    if (result) {
+    const { success } = data;
+    if (success) {
       if (this.save) this.saveId();
       this.saveState(data);
       await this.$router.push({
         path: '/dotto'
-      })
+      });
     } else {
       this.loginFailed = '이메일 및 패스워드를 확인해주세요.';
     }
@@ -134,7 +134,7 @@ export default class LoginView extends Vue {
   }
 
   saveState(userData: IUser.ILoginSuccess): void {
-    this.$store.commit('userStore/setUserState', userData);
+    this.$store.commit('userStore/login', userData);
   }
 
   clearMsg(): void {
@@ -410,4 +410,5 @@ input[id="auto"]:checked + label::after{
   margin-top: 136px;
   margin-left: 10px;
 }
+
 </style>

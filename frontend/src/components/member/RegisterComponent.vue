@@ -185,7 +185,6 @@ export default class MemberRegisterComponent extends Vue {
   validationNickName(): void {
     const reg = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
     if (reg.test(this.nickname)) {
-
       this.NickNameMessage = EMessageRegister.SPECIAL_CHARACTERS_NOT_ALLOWED;
     } else {
       this.NickNameMessage = EMessageRegister.BLANK;
@@ -198,11 +197,11 @@ export default class MemberRegisterComponent extends Vue {
     if (reg.test(this.phone)) {
       this.PhoneMessage = EMessageRegister.BLANK;
     } else {
-      if (this.phone.length === 11) {
+      if (this.phone.length === 10) {
         this.PhoneMessage = EMessageRegister.BLANK;
-        this.phone = '';
       } else {
         this.PhoneMessage = EMessageRegister.PHONE_NOT_ENTERED;
+        this.openBtn = true;
       }
     }
   }
@@ -241,6 +240,7 @@ export default class MemberRegisterComponent extends Vue {
         password: this.password,
         id: this.id,
         phone: this.phone,
+        gender: this.gender
       };
 
       //TODO: 반환 data에 대한 타입 정의

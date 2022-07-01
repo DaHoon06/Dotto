@@ -77,7 +77,7 @@
             <input v-model="addTag" maxlength="10" id="dotto-post-tags" type="text" @keypress.enter="addTags" placeholder="해쉬 태그 등록" />
           </div>
           <div>
-            <textarea @keyup="validation"  v-model="content" placeholder="내용을 입력 해주세요.."></textarea>
+            <textarea @keyup="validation" v-model="content" placeholder="내용을 입력해 주세요.."></textarea>
           </div>
         </div>
 
@@ -89,10 +89,11 @@
 </template>
 
 <script lang="ts">
-import {Component, Emit, Vue} from "vue-property-decorator";
+import { Component, Emit, Vue } from "vue-property-decorator";
 import { IBoard } from "@/interfaces/IBoard";
 import FileUploadComponent from "@/components/common/utils/FileUploadComponent.vue";
-
+import { ins } from '@/lib/axios';
+import {AxiosInstance} from "axios";
 @Component({
   components: {
     FileUploadComponent
@@ -102,9 +103,9 @@ export default class DottoPostingComponent extends Vue {
 
   title = '';
   content = '';
-  originalPrice = '';
-  price = '';
-  salesPrice = '';
+  originalPrice = 0;
+  price = 0;
+  salesPrice = 0;
   salesYn = false;
   genreDefault = '';
   totalTimeDefault = '';
@@ -130,21 +131,21 @@ export default class DottoPostingComponent extends Vue {
   openBtn = true;
   activeBtn = 'active-post-btn';
 
-  created() {
+  created(): void {
     this.changeBackground();
   }
 
   private validation(): void {
-    this.openBtn = !(this.title.length && this.genreDefault.length && this.totalTimeDefault.length && this.content.length && this.originalPrice.length);
+    this.openBtn = !(this.title.length && this.genreDefault.length && this.totalTimeDefault.length && this.content.length && this.originalPrice);
   }
 
-  async posting():Promise<void> {
-    alert('전송 중')
 
-    const sendData: IBoard.Dotto = {
+  async posting(): Promise<void> {
+    console.log(this.originalPrice)
+    const sendData: any = {
       title: this.title,
       content: this.content,
-      price: this.price,
+      price: +this.originalPrice,
       salesPrice: this.salesPrice,
       salesYn: this.salesYn,
       genre: this.genreDefault,
@@ -152,12 +153,18 @@ export default class DottoPostingComponent extends Vue {
       tag: this.tag,
       postPhoto: this.postPhoto
     }
-    console.log(sendData)
+
     const headers = {
       'Content-Type': 'multipart/form-data',
     }
-
-    const { data } = await this.axios.post('/test', sendData, { headers });
+    const test = new FormData();
+    test.append('data', sendData);
+    console.log(sendData)
+    const { data } = await ins.post('/dottopost', test, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      }
+    });
     console.log(data);
   }
 
@@ -239,6 +246,7 @@ textarea {
 
 #dotto-post-btn-area {
   position: fixed;
+  top: 144px;
   display: flex;
   align-items: center;
   justify-content: flex-end;

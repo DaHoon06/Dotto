@@ -61,7 +61,7 @@ class SignControllerTest {
     void signIn() throws Exception{
         //given
         SignInRequest req = SignInRequestFactory.createSignInRequest();
-        given(signService.SignIn(req)).willReturn(SignInResponseFactory.createSignInResponse("access","refresh"));
+        given(signService.SignIn(req)).willReturn(SignInResponseFactory.createSignInResponse("access","refresh","nickname","roles"));
 
         //when
         mockMvc.perform(

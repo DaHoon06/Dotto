@@ -6,7 +6,6 @@ export namespace IBoard {
     deletedYn: string;
   }
 
-
   export interface Dotto {
     title: string;
     content: string;
@@ -19,8 +18,18 @@ export namespace IBoard {
     postPhoto?: File[];
   }
 
-  export interface Categories {
-    text: string;
-    value: string
+  export interface IFileUpload {
+    file: FileUpload[];
+    preview: string;
+    number: number;
+  }
+
+  export interface FileUpload {
+    lastModified: number,
+    lastModifiedDate: Date,
+    name: string,
+    size: number,
+    type: string,
+    webkitRelativePath: string
   }
 }

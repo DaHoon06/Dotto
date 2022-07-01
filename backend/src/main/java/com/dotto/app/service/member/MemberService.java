@@ -15,13 +15,13 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    public MemberDto read(Long memNo){
-        return MemberDto.toDto(memberRepository.findById(memNo).orElseThrow(MemberNotFoundException::new));
+    public MemberDto read(Long memberNo){
+        return MemberDto.toDto(memberRepository.findById(memberNo).orElseThrow(MemberNotFoundException::new));
     }
 
     @Transactional
-    public void delete(Long memNo){
-        Member member = memberRepository.findById(memNo).orElseThrow(MemberNotFoundException::new);
+    public void delete(Long memberNo){
+        Member member = memberRepository.findById(memberNo).orElseThrow(MemberNotFoundException::new);
         memberRepository.delete(member);
     }
 }

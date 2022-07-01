@@ -17,11 +17,11 @@ public class MemberRole {
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="member_no")
+    @JoinColumn(name="memberNo")
     private Member member;
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_no")
+    @JoinColumn(name = "roleNo")
     private Role role;
 }

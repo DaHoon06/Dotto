@@ -4,6 +4,7 @@ export namespace IUser {
         password: string,
         id: string;
         phone: string;
+        gender: string;
     }
 
     export interface ITattoist extends IRegisterProp{
@@ -17,17 +18,33 @@ export namespace IUser {
     }
 
     export interface ILoginSuccess {
-        result: boolean,
-        token: string,
-        nickname: string,
-        id: string,
-        loginType: string,
+        success: boolean,
+        code: number,
+        result: DataProperty,
+        roles: string[]
     }
 
-    export interface SelectedOptions {
-        value: string,
-        text: string,
-        disabled?: boolean
+    export interface DataProperty {
+        accessToken: string,
+        refreshToken: string,
+        nickname: string,
+        roles: string[]
     }
+
+
+    export interface UserStore {
+        isLogin: boolean,
+        accessToken: string,
+        refreshToken: string,
+        nickname: string,
+        roles: string,
+    }
+
+    export interface AxiosLoginResponse {
+        success: boolean,
+        result: IUser.DataProperty,
+        code: number,
+    }
+
 
 }

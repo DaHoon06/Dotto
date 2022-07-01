@@ -53,20 +53,16 @@
 
 <script lang="ts">
 import { Component, Ref, Vue } from "vue-property-decorator";
+import { IBoard } from "@/interfaces/IBoard";
 
-export interface IFileUpload {
-  file: any;
-  preview: string;
-  number: number;
-}
+
 
 @Component
 export default class FileUploadComponent extends Vue {
   @Ref() readonly fileRef!: any;
 
-  files = [];
+  files: IBoard.IFileUpload[] = [];
   uploadImageIndex = 0;
-
 
   private imageUpload(): void {
     let num = -1;
@@ -81,7 +77,6 @@ export default class FileUploadComponent extends Vue {
       ];
       num = i;
     }
-    console.log(this.files);
     this.uploadImageIndex = num + 1;
   }
 
@@ -104,7 +99,7 @@ export default class FileUploadComponent extends Vue {
   private fileDeleteButton(e: Event) {
     const target = e.target as HTMLInputElement;
     const id = target.getAttribute('id');
-    this.files = this.files.filter((data) => data.number !== Number(id));
+    this.files = this.files.filter((data: IBoard.IFileUpload) => data.number !== Number(id));
   }
 
 }

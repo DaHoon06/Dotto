@@ -17,7 +17,7 @@ public class JwtHandler {
 
     public String createToken(String key, Map<String, Object> privateClaims, Long maxAgeSeconds){
         Date now = new Date();
-        return type + Jwts.builder()
+        return Jwts.builder()
                 .addClaims(privateClaims)
                 .addClaims(Map.of(Claims.ISSUED_AT, now, Claims.EXPIRATION, new Date(now.getTime() + maxAgeSeconds * 1000L)))
                 .signWith(SignatureAlgorithm.HS256, key.getBytes())

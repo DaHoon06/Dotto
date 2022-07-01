@@ -42,8 +42,8 @@ class MemberRepositoryTest {
         clear();
 
         //then
-        Member foundMember = memberRepository.findById(member.getMemNo()).orElseThrow(MemberNotFoundException::new);
-        assertThat(foundMember.getMemNo()).isEqualTo(member.getMemNo());
+        Member foundMember = memberRepository.findById(member.getMemberNo()).orElseThrow(MemberNotFoundException::new);
+        assertThat(foundMember.getMemberNo()).isEqualTo(member.getMemberNo());
     }
 
     @Test
@@ -56,7 +56,7 @@ class MemberRepositoryTest {
         clear();
 
         //then
-        Member foundMember = memberRepository.findById(member.getMemNo()).orElseThrow(MemberNotFoundException::new);
+        Member foundMember = memberRepository.findById(member.getMemberNo()).orElseThrow(MemberNotFoundException::new);
         assertThat(foundMember.getCreatedAt()).isNotNull();
         assertThat(foundMember.getModifiedAt()).isNotNull();
         assertThat(foundMember.getCreatedAt()).isEqualTo(foundMember.getModifiedAt());
@@ -71,13 +71,13 @@ class MemberRepositoryTest {
         clear();
 
         //when
-        Member foundMember = memberRepository.findById(member.getMemNo()).orElseThrow(MemberNotFoundException::new);
+        Member foundMember = memberRepository.findById(member.getMemberNo()).orElseThrow(MemberNotFoundException::new);
         foundMember.updateNickName(updatedNickname);
         foundMember.updateIntro(updatedIntro);
         clear();
 
         //then
-        Member updatedMember = memberRepository.findById(member.getMemNo()).orElseThrow(MemberNotFoundException::new);
+        Member updatedMember = memberRepository.findById(member.getMemberNo()).orElseThrow(MemberNotFoundException::new);
         assertThat(updatedMember.getNickname()).isEqualTo(updatedNickname);
         assertThat(updatedMember.getIntro()).isEqualTo(updatedIntro);
 
@@ -94,7 +94,7 @@ class MemberRepositoryTest {
         clear();
 
         //then
-        assertThatThrownBy(() -> memberRepository.findById(member.getMemNo()).orElseThrow(MemberNotFoundException::new))
+        assertThatThrownBy(() -> memberRepository.findById(member.getMemberNo()).orElseThrow(MemberNotFoundException::new))
                 .isInstanceOf(MemberNotFoundException.class);
     }
 
@@ -105,10 +105,10 @@ class MemberRepositoryTest {
         clear();
 
         //when
-        Member foundMember = memberRepository.findById(member.getMemNo()).orElseThrow(MemberNotFoundException::new);
+        Member foundMember = memberRepository.findById(member.getMemberNo()).orElseThrow(MemberNotFoundException::new);
 
         //then
-        assertThat(foundMember.getMemNo()).isEqualTo(member.getMemNo());
+        assertThat(foundMember.getMemberNo()).isEqualTo(member.getMemberNo());
     }
 
     @Test
@@ -117,7 +117,7 @@ class MemberRepositoryTest {
         Member member = memberRepository.save(createMember());
         clear();
         //when
-        Member foundMember = memberRepository.findById(member.getMemNo()).orElseThrow(MemberNotFoundException::new);
+        Member foundMember = memberRepository.findById(member.getMemberNo()).orElseThrow(MemberNotFoundException::new);
 
         //then
         assertThat(foundMember.getNickname()).isEqualTo(member.getNickname());
@@ -126,22 +126,22 @@ class MemberRepositoryTest {
     @Test
     void uniqueMemberIdTest(){
         //given
-        Member member = memberRepository.save(createMember("member1@email.com","qwe123!","nickname","gender","01012345678","서울특별시 강남구","강남동", null));
+        Member member = memberRepository.save(createMember("member1@email.com","qwe123!","nickname","gender","01012345678", null));
         clear();
 
         //when
-        assertThatThrownBy(() -> memberRepository.save(createMember(member.getEmail(),"qwe123!2","nickname2","gender2","01112345678","서울특별시 강남구2","강남동2", null)))
+        assertThatThrownBy(() -> memberRepository.save(createMember(member.getId(),"qwe123!2","nickname2","gender2","01112345678", null)))
                 .isInstanceOf(DataIntegrityViolationException.class);
     }
 
     @Test
     void uniqueNicknameTest(){
         //given
-        Member member = memberRepository.save(createMember("member1","qwe123!","nickname","gender","01012345678","서울특별시 강남구","강남동", null));
+        Member member = memberRepository.save(createMember("member1","qwe123!","nickname","gender","01012345678",null));
         clear();
 
         //when
-        assertThatThrownBy(() -> memberRepository.save(createMember("member1","qwe123!", member.getNickname(),"gender","01012345678","서울특별시 강남구","강남동", null)))
+        assertThatThrownBy(() -> memberRepository.save(createMember("member1","qwe123!", member.getNickname(),"gender","01012345678", null)))
                 .isInstanceOf(DataIntegrityViolationException.class);
     }
 
@@ -151,8 +151,8 @@ class MemberRepositoryTest {
         Member member = memberRepository.save(createMember());
 
         //when, then
-        assertThat(memberRepository.existsByEmail(member.getEmail())).isTrue();
-        assertThat(memberRepository.existsByEmail(member.getEmail()+"test")).isFalse();
+        assertThat(memberRepository.existsById(member.getId())).isTrue();
+        assertThat(memberRepository.existsById(member.getId()+"test")).isFalse();
 
     }
 
@@ -169,7 +169,7 @@ class MemberRepositoryTest {
     @Test
     void memberRoleCascadePersistTest(){
         //given
-        List<RoleType> roleTypes = List.of(RoleType.ROlE_NORMAL, RoleType.ROLE_TATTOOIST, RoleType.ROLE_ADMIN);
+        List<RoleType> roleTypes = List.of(RoleType.ROlE_NORMAL, RoleType.ROLE_ARTIST, RoleType.ROLE_ADMIN);
         List<Role> roles = roleTypes.stream().map(roleType -> new Role(roleType)).collect(Collectors.toList());
         roleRepository.saveAll(roles);
         clear();
@@ -178,7 +178,7 @@ class MemberRepositoryTest {
         clear();
 
         //when
-        Member foundMember = memberRepository.findById(member.getMemNo()).orElseThrow(MemberNotFoundException::new);
+        Member foundMember = memberRepository.findById(member.getMemberNo()).orElseThrow(MemberNotFoundException::new);
         Set<MemberRole> memberRoles = foundMember.getRoles();
 
         //then
@@ -188,7 +188,7 @@ class MemberRepositoryTest {
     @Test
     void memberRoleCascadeDeleteTest(){
         //given
-        List<RoleType> roleTypes = List.of(RoleType.ROlE_NORMAL, RoleType.ROLE_TATTOOIST, RoleType.ROLE_ADMIN);
+        List<RoleType> roleTypes = List.of(RoleType.ROlE_NORMAL, RoleType.ROLE_ARTIST, RoleType.ROLE_ADMIN);
         List<Role> roles = roleTypes.stream().map(roleType -> new Role(roleType)).collect(Collectors.toList());
         roleRepository.saveAll(roles);
         clear();
@@ -197,7 +197,7 @@ class MemberRepositoryTest {
         clear();
 
         //when
-        memberRepository.deleteById(member.getMemNo());
+        memberRepository.deleteById(member.getMemberNo());
         clear();
 
         //then
@@ -208,7 +208,7 @@ class MemberRepositoryTest {
     @Test
     void findWithRolesByEmailTest(){
         //given
-        List<RoleType> roleTypes = List.of(RoleType.ROlE_NORMAL, RoleType.ROLE_TATTOOIST, RoleType.ROLE_ADMIN);
+        List<RoleType> roleTypes = List.of(RoleType.ROlE_NORMAL, RoleType.ROLE_ARTIST, RoleType.ROLE_ADMIN);
         List<Role> roles = roleTypes.stream().map(roleType -> new Role(roleType)).collect(Collectors.toList());
         roleRepository.saveAll(roles);
         clear();
@@ -217,7 +217,7 @@ class MemberRepositoryTest {
         clear();
 
         //when
-        Member foundMember = memberRepository.findWithRolesByEmail(member.getEmail()).orElseThrow(MemberNotFoundException::new);
+        Member foundMember = memberRepository.findWithRolesById(member.getId()).orElseThrow(MemberNotFoundException::new);
 
         //then
         List<RoleType> rs = foundMember.getRoles().stream().map(memberRole -> memberRole.getRole().getRoleType()).collect(Collectors.toList());
