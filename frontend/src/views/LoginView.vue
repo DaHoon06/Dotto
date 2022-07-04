@@ -28,7 +28,7 @@
 
 <!--  라인 이미지로 대체해야할듯  -->
     <section class="login-info-section">
-      <div id="social-login" src="@/assets/icons/board/mymenu/loginSimpleLine.svg">ㅡㅡㅡㅡㅡㅡㅡㅡㅡ간편 로그인ㅡㅡㅡㅡㅡㅡㅡㅡㅡ</div>
+      <div id="social-login" src="@/assets/icons/board/mymenu/loginSimpleLine.svg">ㅡㅡㅡㅡㅡㅡㅡ간편 로그인ㅡㅡㅡㅡㅡㅡㅡ</div>
 <!--      <article id="simple-login-icons">-->
         <div id="login-btn-img">
 

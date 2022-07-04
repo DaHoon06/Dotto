@@ -33,7 +33,7 @@
           <input type="checkbox" id="check2" @change="[handleClickEachCheckBox(), btnActive()]" v-model="checkList2" />
           <label for="check2"></label>
         </div>
-        <div class="policy-title-test">개인정보 수집 . 이용동<span class="necessary">(필수)</span></div>
+        <div class="policy-title-test">개인정보 수집 . 이용동의<span class="necessary">(필수)</span></div>
         <div>
           <img @click="showPrivatePolicyContent" class="side-menu-drop-btn filter-text" src="@/assets/icons/nav/filter-btn.svg" alt="sort" />
         </div>

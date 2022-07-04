@@ -1,6 +1,9 @@
 <template>
   <section id="member-register-wrapper" >
     <form id="member-register-form" @submit.prevent="register">
+
+      <br />
+
       <div class="input-wrapper">
         <label>아이디</label>
         <input
@@ -9,6 +12,7 @@
             @change="btnActive"
             type="text"
             v-model="id"
+            placeholder="6자이상의 영문 혹은 영문과 숫자 조합"
             class="input-text"
             ref="refId"
         />
@@ -24,6 +28,7 @@
             type="password" autocomplete="off"
             @change="[validationPassword(), btnActive()]"
             v-model="password"
+            placeholder="비밀번호를 입력해주세요."
             class="input-text"
             ref="refPassword"
         />
@@ -37,6 +42,7 @@
             type="password" autocomplete="off"
             @change="[validationPassword(), btnActive()]"
             v-model="passwordCheck"
+            placeholder="비밀번호를 한번 더 입력해주세요."
             class="input-text" />
       </div>
       <div class="warning-msg">{{ PasswordCheckMessage }}</div>
@@ -49,6 +55,7 @@
             @focus="msgClear"
             @change="btnActive"
             v-model="nickname"
+            placeholder="닉네임을 입력해주세요."
             class="input-text"
             ref="refNickName"
         />
@@ -60,15 +67,16 @@
       <div class="warning-msg">{{ NickNameMessage }}</div>
 
       <div class="input-wrapper" >
+        <label>휴대폰</label>
         <input
             @keydown.enter.prevent
             @keydown="validationPhoneNumber"
             @change="btnActive"
             type="number"
             maxlength="11"
-            class="input-text"
+            class="input-text test-01"
             v-model="phone"
-            placeholder="휴대폰번호 입력"
+            placeholder="휴대폰번호 입력해주세요."
             ref="refPhone"
         />
         <button class="register-btn">인증번호받기</button>
@@ -80,11 +88,12 @@
             @keydown.enter.prevent
             type="text"
             class="input-text"
-            placeholder="인증번호 입력" />
+            placeholder="인증번호 입력해주세요." />
         <button class="register-btn">인증하기</button>
       </div>
 
       <div id="gender-wrapper">
+        <label>성별</label>
         <input @keydown.enter.prevent class="selected-gender" @change="btnActive" type="radio" id="male" v-model="gender" value="male" name="male" />
         <label for="male">남성</label>
         <input @keydown.enter.prevent class="selected-gender" @change="btnActive" type="radio" id="female" v-model="gender" value="female" name="female" />
@@ -354,5 +363,13 @@ select::-ms-expand {
   background: black;
   color: #fff;
   padding: 3px 0;
+}
+
+.selected-gender {
+  margin-left: 40px;
+}
+
+.test-01 {
+  /*margin-left: 40px;*/
 }
 </style>
