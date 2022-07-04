@@ -1,6 +1,6 @@
 /* 공통 HTML 태그 default CSS */
 * {
-    margin: 0;
+    margin: 1px;
     padding: 0;
     box-sizing: border-box;
     -moz-box-sizing: border-box;

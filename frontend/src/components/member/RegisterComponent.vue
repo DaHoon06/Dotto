@@ -13,7 +13,7 @@
             type="text"
             v-model="id"
             placeholder="6자이상의 영문 혹은 영문과 숫자 조합"
-            class="input-text"
+            class="input-text test-01"
             ref="refId"
         />
         <button class="register-btn" @click="idCheck" type="button">중복확인</button>
@@ -29,7 +29,7 @@
             @change="[validationPassword(), btnActive()]"
             v-model="password"
             placeholder="비밀번호를 입력해주세요."
-            class="input-text"
+            class="input-text test-02"
             ref="refPassword"
         />
       </div>
@@ -43,7 +43,7 @@
             @change="[validationPassword(), btnActive()]"
             v-model="passwordCheck"
             placeholder="비밀번호를 한번 더 입력해주세요."
-            class="input-text" />
+            class="input-text test-03" />
       </div>
       <div class="warning-msg">{{ PasswordCheckMessage }}</div>
 
@@ -56,7 +56,7 @@
             @change="btnActive"
             v-model="nickname"
             placeholder="닉네임을 입력해주세요."
-            class="input-text"
+            class="input-text test-04"
             ref="refNickName"
         />
         <button
@@ -74,7 +74,7 @@
             @change="btnActive"
             type="number"
             maxlength="11"
-            class="input-text test-01"
+            class="input-text test-05"
             v-model="phone"
             placeholder="휴대폰번호 입력해주세요."
             ref="refPhone"
@@ -87,7 +87,7 @@
         <input
             @keydown.enter.prevent
             type="text"
-            class="input-text"
+            class="input-text test-06"
             placeholder="인증번호 입력해주세요." />
         <button class="register-btn">인증하기</button>
       </div>
@@ -366,10 +366,25 @@ select::-ms-expand {
 }
 
 .selected-gender {
-  margin-left: 40px;
+  margin-left: 75px;
 }
 
 .test-01 {
-  /*margin-left: 40px;*/
+  margin-left: 60px;
+}
+.test-02 {
+  margin-left: 45px;
+}
+.test-03 {
+  margin-left: 7px;
+}
+.test-04 {
+  margin-left: 60px;
+}
+.test-05 {
+  margin-left: 60px;
+}
+.test-06 {
+  margin-left: 108px;
 }
 </style>

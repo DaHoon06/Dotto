@@ -5,7 +5,7 @@
     height: 32px;
     width: 220px;
     padding-left: 10px;
-    margin-left: 60px;
+    /*margin-left: 60px;*/
     font-size: 8px;
 }
 
@@ -42,9 +42,9 @@
     /*box-shadow: 1px 1px 1px #b2b2b2;*/
     color: #222222;
     /*background: #222222;*/
-    font-size: 13px;
+    font-size: 11px;
     height: 30px;
-    width: 95px;
+    width: 90px;
     padding: 6px 6px 6px 6px;
 }
 .register-common-btn {
